@@ -1,13 +1,13 @@
-package com.invest.allinfo;
+package com.invest.common;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class AllinfoApplication {
+public class CommonApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(AllinfoApplication.class, args);
+        SpringApplication.run(CommonApplication.class, args);
     }
 
 }
