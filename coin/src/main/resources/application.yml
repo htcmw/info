@@ -12,6 +12,7 @@ spring:
     show_sql: false
     hibernate:
       ddl-auto: none
+    open-in-view: false
 
 logging:
   level:
@@ -40,6 +41,7 @@ spring:
     properties:
       hibernate:
         format_sql: true
+    open-in-view: false
 
 logging:
   level:
@@ -52,17 +54,18 @@ spring:
     activate:
       on-profile: dev
   datasource:
-    url: jdbc:mysql://localhost:3305/dev?serverTimezone=Asia/Seoul
+    url: jdbc:mysql://localhost:3305/coin?serverTimezone=Asia/Seoul
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: dev
     password: dev
   jpa:
     show_sql: true
     hibernate:
-      ddl-auto: none
+      ddl-auto: update
     properties:
       hibernate:
         format_sql: true
+    open-in-view: false
 
 logging:
   level:
@@ -80,12 +83,13 @@ spring:
     username: sa
     password: sa
   jpa:
-    show_sql: false
+    show_sql: true
     hibernate:
-      ddl-auto: none
+      ddl-auto: update
     properties:
       hibernate:
         format_sql: true
+    open-in-view: false
 
 logging:
   level:
