@@ -1,0 +1,92 @@
+server:
+  port: 10001
+spring:
+  datasource:
+    url: jdbc:mariadb://localhost:3306/exchange
+    username: invest-success
+    password: invest-success
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  flyway:
+    locations: [ "classpath:db/migration" ]
+  jpa:
+    show_sql: false
+    hibernate:
+      ddl-auto: none
+
+logging:
+  level:
+    com.invest.coin: warn
+
+openapi:
+  upbit: https://api.upbit.com/v1
+---
+server:
+  port: 11001
+spring:
+  config:
+    activate:
+      on-profile: stg
+  flyway:
+    locations: [ "classpath:db/migration" ]
+  datasource:
+    url: jdbc:mysql://localhost:3305/dev?serverTimezone=Asia/Seoul
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: invest
+    password: invest
+  jpa:
+    show_sql: true
+    hibernate:
+      ddl-auto: none
+    properties:
+      hibernate:
+        format_sql: true
+
+logging:
+  level:
+    com.invest.coin: info
+---
+server:
+  port: 11001
+spring:
+  config:
+    activate:
+      on-profile: dev
+  datasource:
+    url: jdbc:mysql://localhost:3305/dev?serverTimezone=Asia/Seoul
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: dev
+    password: dev
+  jpa:
+    show_sql: true
+    hibernate:
+      ddl-auto: none
+    properties:
+      hibernate:
+        format_sql: true
+
+logging:
+  level:
+    com.invest.coin: info
+---
+server:
+  port: 11001
+spring:
+  config:
+    activate:
+      on-profile: test
+  datasource:
+    url: jdbc:h2:~/coin_h2/coin;
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: sa
+  jpa:
+    show_sql: false
+    hibernate:
+      ddl-auto: none
+    properties:
+      hibernate:
+        format_sql: true
+
+logging:
+  level:
+    com.invest.coin: trace
