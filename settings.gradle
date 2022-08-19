@@ -1,4 +1,5 @@
 rootProject.name = 'allinfo'
 include 'coin'
 include 'common'
+include 'stream'
 

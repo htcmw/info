@@ -18,8 +18,11 @@ logging:
   level:
     com.invest.coin: warn
 
-openapi:
-  upbit: https://api.upbit.com/v1
+external-api:
+  upbit:
+    openapi: https://api.upbit.com/v1
+    websocket: wss://api.upbit.com/websocket/v1
+
 ---
 server:
   port: 11001

@@ -62,9 +62,8 @@ subprojects {
         annotationProcessor 'org.projectlombok:lombok'
 
         testImplementation 'org.springframework.boot:spring-boot-starter-test'
-        runtimeOnly 'com.h2database:h2'
-        runtimeOnly 'mysql:mysql-connector-java'
-
+        testImplementation 'io.projectreactor:reactor-test'
+        testImplementation 'org.springframework.amqp:spring-rabbit-test'
     }
 
     tasks.named('test') {
@@ -84,11 +83,24 @@ project(':coin') {
     bootJar { enabled = true }
     dependencies {
         implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
-        implementation 'org.springframework.boot:spring-boot-starter-websocket'
         implementation 'org.springframework.boot:spring-boot-starter-web'
+        implementation 'org.eclipse.jetty.websocket:websocket-client:9.4.48.v20220622'
         implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
         implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
         runtimeOnly 'com.h2database:h2'
         runtimeOnly 'mysql:mysql-connector-java'
+    }
+}
+
+
+
+project(':stream') {
+    bootJar { enabled = true }
+    dependencies {
+        implementation 'org.springframework.boot:spring-boot-starter-webflux'
+        implementation 'org.springframework.boot:spring-boot-starter-websocket'
+        implementation 'org.apache.kafka:kafka-streams'
+        implementation 'org.springframework.kafka:spring-kafka'
+        testImplementation 'org.springframework.kafka:spring-kafka-test'
     }
 }
