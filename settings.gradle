@@ -1,5 +1,5 @@
-rootProject.name = 'allinfo'
+rootProject.name = 'info'
 include 'coin'
-include 'common'
-include 'stream'
+include 'library'
+include 'sse'
 

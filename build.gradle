@@ -70,7 +70,7 @@ subprojects {
     }
 }
 
-project(':common') {
+project(':library') {
     bootJar { enabled = false }
     jar { enabled = false }
     dependencies {
@@ -93,7 +93,7 @@ project(':coin') {
 
 
 
-project(':stream') {
+project(':sse') {
     bootJar { enabled = true }
     dependencies {
         implementation 'org.springframework.boot:spring-boot-starter-webflux'
