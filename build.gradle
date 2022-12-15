@@ -63,7 +63,6 @@ subprojects {
 
         testImplementation 'org.springframework.boot:spring-boot-starter-test'
         testImplementation 'io.projectreactor:reactor-test'
-        testImplementation 'org.springframework.amqp:spring-rabbit-test'
     }
 
     tasks.named('test') {
@@ -83,10 +82,10 @@ project(':coin') {
     bootJar { enabled = true }
     dependencies {
         implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
-        implementation 'org.springframework.boot:spring-boot-starter-web'
-        implementation 'org.eclipse.jetty.websocket:websocket-client:9.4.48.v20220622'
-        implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+        implementation 'org.springframework.boot:spring-boot-starter-websocket'
         implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
+        implementation 'org.springframework.boot:spring-boot-starter-web'
+        implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
         runtimeOnly 'com.h2database:h2'
         runtimeOnly 'mysql:mysql-connector-java'
     }
