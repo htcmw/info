@@ -1,38 +1,19 @@
-import org.springframework.boot.gradle.plugin.SpringBootPlugin
-
 plugins {
-    id 'org.springframework.boot' version '2.7.2'
-    id 'io.spring.dependency-management' version '1.0.12.RELEASE'
+    id 'org.springframework.boot' version '3.0.0'
+    id 'io.spring.dependency-management' version '1.1.0'
     id 'java'
 }
 
 bootJar.enabled = false
 
-configurations {
-    compileOnly {
-        extendsFrom annotationProcessor
-    }
-}
-
-repositories {
-    mavenCentral()
-}
-
-dependencyManagement {
-    imports {
-        mavenBom SpringBootPlugin.BOM_COORDINATES
-    }
-}
-
 subprojects {
-    apply plugin: 'java'
-    apply plugin: 'java-library'
-    apply plugin: 'org.springframework.boot'
-    apply plugin: 'io.spring.dependency-management'
-
-    group = 'com.invest'
+    group = 'com.info'
     version = '0.0.1-SNAPSHOT'
     sourceCompatibility = '17'
+
+    apply plugin: 'java'
+    apply plugin: 'org.springframework.boot'
+    apply plugin: 'io.spring.dependency-management'
 
     configurations {
         compileOnly {
@@ -42,33 +23,31 @@ subprojects {
 
     repositories {
         mavenCentral()
-    }
-
-    ext {
-        set('springCloudVersion', "2021.0.3")
-    }
-
-    dependencyManagement {
-        imports {
-            mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
-        }
+        gradlePluginPortal()
+        maven { url 'https://repo.spring.io/milestone' }
     }
 
     dependencies {
         developmentOnly 'org.springframework.boot:spring-boot-devtools'
-        annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
-
         compileOnly 'org.projectlombok:lombok'
-        annotationProcessor 'org.projectlombok:lombok'
-
+        annotationProcessor(
+                'org.springframework.boot:spring-boot-configuration-processor',
+                'org.projectlombok:lombok'
+        )
         testImplementation 'org.springframework.boot:spring-boot-starter-test'
-        testImplementation 'io.projectreactor:reactor-test'
     }
 
-    tasks.named('test') {
+
+    test {
         useJUnitPlatform()
     }
 }
+
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
+
 
 project(':library') {
     bootJar { enabled = false }
@@ -81,25 +60,35 @@ project(':library') {
 project(':coin') {
     bootJar { enabled = true }
     dependencies {
-        implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
-        implementation 'org.springframework.boot:spring-boot-starter-websocket'
-        implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
-        implementation 'org.springframework.boot:spring-boot-starter-web'
-        implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-        runtimeOnly 'com.h2database:h2'
-        runtimeOnly 'mysql:mysql-connector-java'
+        dependencyManagement {
+            imports {
+                mavenBom "org.springframework.cloud:spring-cloud-dependencies:2022.0.0-RC2"
+            }
+        }
+        implementation(
+                project(':library'),
+                'org.springframework.boot:spring-boot-starter-websocket',
+                'org.springframework.cloud:spring-cloud-starter-openfeign',
+                'org.springframework.boot:spring-boot-starter-web',
+                'org.springframework.boot:spring-boot-starter-data-jpa',
+        )
+        runtimeOnly(
+                'com.h2database:h2',
+                'mysql:mysql-connector-java'
+        )
     }
 }
-
-
 
 project(':sse') {
     bootJar { enabled = true }
     dependencies {
-        implementation 'org.springframework.boot:spring-boot-starter-webflux'
-        implementation 'org.springframework.boot:spring-boot-starter-websocket'
-        implementation 'org.apache.kafka:kafka-streams'
-        implementation 'org.springframework.kafka:spring-kafka'
+        implementation project(':library')
+        implementation(
+                'org.springframework.boot:spring-boot-starter-webflux',
+                'org.springframework.boot:spring-boot-starter-websocket',
+                'org.apache.kafka:kafka-streams',
+                'org.springframework.kafka:spring-kafka'
+        )
         testImplementation 'org.springframework.kafka:spring-kafka-test'
     }
 }

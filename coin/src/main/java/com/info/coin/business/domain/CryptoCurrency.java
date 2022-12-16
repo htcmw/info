@@ -2,7 +2,7 @@ package com.info.coin.business.domain;
 
 import com.info.coin.business.audit.BaseEntity;
 import com.info.coin.business.constant.CryptoCurrencyType;
-import javax.persistence.*;
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;

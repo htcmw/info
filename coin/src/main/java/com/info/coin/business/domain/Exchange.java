@@ -2,7 +2,7 @@ package com.info.coin.business.domain;
 
 import com.info.coin.business.constant.CoinExchangeStatus;
 import com.info.coin.business.constant.ExchangeType;
-import javax.persistence.*;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
